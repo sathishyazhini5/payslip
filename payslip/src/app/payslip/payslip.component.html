@@ -1,0 +1,179 @@
+<div class="container">
+<div class="row">
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.Employee_id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.Employee_Name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="from">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> From </th>
+        <td mat-cell *matCellDef="let row" class="datepic">
+            <div class="d-flex">
+              <input matInput [matDatepicker]="dp" [formControl]="fromDate">
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp
+                            startView="multi-year"
+                            (monthSelected)="setMonthAndYear($event, dp)"
+                            panelClass="example-month-picker">
+            </mat-datepicker>
+            </div>
+          
+         </td>
+      </ng-container>
+
+      <ng-container matColumnDef="to">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> To </th>
+        <td mat-cell *matCellDef="let row" class="datepic">
+            <div class="d-flex">
+              <input matInput [matDatepicker]="dp" [formControl]="toDate">
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp
+                            startView="multi-year"
+                            (monthSelected)="setmonthAndyear($event, dp)"
+                            panelClass="example-month-picker">
+            </mat-datepicker>
+            </div>
+          
+         </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <td mat-cell *matCellDef="let row">
+          <button  (click)="print(row)" mat-raised-button color="primary">generate</button> </td>
+      </ng-container>
+      
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>
+</div>
+
+<div  *ngFor="let data of detail">
+  <div class="contentToPrint" style="display:none">
+    
+      <div class="img"  style="position: absolute; margin-left: 50px;margin-top: 50px;">
+        <img src="/assets/DS LOGO(1).png" height="100px" width="100px" *ngIf='data.Company_Name=="DIGERATI SOFTWARE DEVELOPMENT AND SERVICES LLP"' >
+        <img src="/assets/m2 logo-1.png" height="80px" width="280px" *ngIf="m2">
+    </div><br>
+    <h1 *ngIf='data.Company_Name=="DIGERATI SOFTWARE DEVELOPMENT AND SERVICES LLP"' style="font-size: 20px;text-align: center; margin-top:150px ;font-weight: bolder;"> Digerati Software Development and Services LLP<br> 
+        Payslip for the month {{data.Month}} {{data.Year}} <br>
+        Financial Period 2022-2023<br> <br>
+        </h1>
+        <h1 *ngIf="m2" style="font-size: 20px;text-align: center; margin-top:150px ;font-weight: bolder;"> M2 Data Studio Private Ltd<br> 
+          Payslip for the month {{data.Month}} {{data.Year}} <br>
+          Financial Period 2022-2023<br> <br>
+          </h1>
+        <br>
+      
+      <div class="table"> 
+      <table class="tableA" style="border: 1px solid black;border-collapse: collapse; width: 62%; margin-left: 150px; position:relative;">
+          <div class="table1">
+          <tr>
+              <th  colspan="4" style="background-color: rgba(167, 165, 165, 0.623);border: 1px solid black;text-align: center;">Employee Information </th>
+          </tr>
+          <tr>
+              <td class="th1"  colspan="4" style="font-weight: bold;border: 1px solid black;text-align: start;">{{data.Employee_Name}}</td>
+          </tr>
+          <tr style="height: 30px;" >
+              <td style="border: 1px solid black;text-align: start;">Employee ID</td>
+              <td style="border: 1px solid black;">{{data.Employee_id}}</td>
+              <td style="border: 1px solid black;text-align: start;">Designation</td>
+              <td style="border: 1px solid black;">{{data.Designation}}</td>
+          </tr>
+          <tr style="height: 30px;border: 1px solid black;">
+              <td style="border: 1px solid black;text-align: start;">Gender</td>
+              <td style="border: 1px solid black;">{{data.Gender}}</td>
+              <td style="border: 1px solid black;text-align: start;">Date Of Joining</td>
+              <td style="border: 1px solid black;">  {{data.Date_of_Joining}}  </td>
+          </tr>
+          <tr style="height: 30px;border: 1px solid black;">
+              <td style="border: 1px solid black;text-align: start;">PAN</td>
+              <td style="border: 1px solid black;">{{data.PAN}}</td>
+              <td style="border: 1px solid black;text-align: start;">Bank Account</td>
+              <td style="border: 1px solid black;">{{data.Bank_AC_Number}}  </td>
+          </tr>
+          <tr style="height: 30px;border: 1px solid black;">
+              <td style="border: 1px solid black;text-align: start;">Location</td>
+              <td style="border: 1px solid black;">{{data.Location}}</td>
+              <td style="border: 1px solid black;text-align: start;">Loss of Pay</td>
+              <td style="border: 1px solid black;">{{data.LOP}}</td>
+          </tr>
+          </div>
+          </table><br>
+    <div class="table2" >
+          <table class="tableA" style="border: 1px solid black;border-collapse: collapse; width: 62%; margin-left: 150px; position:relative;">
+              <tr style="height: 30px;background-color: rgba(167, 165, 165, 0.623);border: 1px solid black;">
+                  <th style="border: 1px solid black;text-align: center;">Earnings</th>
+                  <th style="border: 1px solid black;text-align: center;">Amount</th>
+                  <th style="border: 1px solid black;text-align: center;">Deductions</th>
+                  <th style="border: 1px solid black;text-align: center;">Amount</th>
+              </tr>
+              <tr style="height: 30px;border: 1px solid black;">
+                  <td style="border: 1px solid black;text-align: start;">Basic</td>
+                  <td style="border: 1px solid black;text-align: end;">{{data.Basic}}</td>
+                  <td style="border: 1px solid black;"></td>
+                  <td style="border: 1px solid black;"></td>
+              </tr>
+              <tr style="height: 30px;border: 1px solid black;">
+                  <td style="border: 1px solid black;text-align: start;">HRA</td>
+                  <td style="border: 1px solid black;text-align: end;">{{data.HRA}}</td>
+                  <td style="border: 1px solid black;"></td>
+                  <td style="border: 1px solid black;"></td>
+              </tr>
+              <tr style="height: 30px;border: 1px solid black;">
+                  <td style="border: 1px solid black;text-align: start;">Conveyance</td>
+                  <td style="border: 1px solid black;text-align: end;">{{data.Conveyance}}</td>
+                  <td style="border: 1px solid black;"></td>
+                  <td style="border: 1px solid black;"></td>
+              </tr>
+              <tr style="height: 30px;border: 1px solid black;">
+                  <td style="border: 1px solid black;text-align: start;">Other Allowance</td>
+                  <td style="border: 1px solid black;text-align: end;">{{data.Other_allowance}}</td>
+                  <td style="border: 1px solid black;"></td>
+                  <td style="border: 1px solid black;"></td>
+              </tr>
+              <tr style="height: 30px;border: 1px solid black;">
+                  <td colspan="4">
+  
+                  </td>
+              </tr>
+              <tr style="height: 30px;border: 1px solid black;">
+                  <td style="border: 1px solid black;text-align: start;">Total Earnings</td>
+                  <td style="border: 1px solid black;text-align: end;">{{data.Salary}}</td>
+                  <td style="border: 1px solid black;text-align: start;">Total Deductions</td>
+                  <td style="border: 1px solid black;text-align: end;">{{data.Total_Detuctions}}</td>
+              </tr>
+              <tr style="height: 30px;border: 1px solid black;">
+                  <th colspan="3" style="background-color: rgba(167, 165, 165, 0.623);border: 1px solid black;">Net Salary = ( A ) - ( B )</th>
+                  <td style="border: 1px solid black;text-align: end;">{{data.total}}</td>
+              </tr>
+          </table>
+          </div>
+          <br>
+   </div>
+   </div>
+   </div>
+
+
+

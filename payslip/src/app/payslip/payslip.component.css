@@ -1,0 +1,70 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+  .example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  
+  .example-month-picker .mat-calendar-arrow {
+    display: none;
+  }
+  
+
+  input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+.mat-input-element{
+  width: 50% !important;
+  /* max-width: 0 !important; */
+}
+
+@page { size: auto;  margin: 0mm; }
+
+
+.img{
+    position: absolute;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+h1{
+    font-size: 20px;
+    text-align: center;
+    margin-top:150px ;
+    font-weight: bolder;
+}
+.tableA{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.tableA{
+    width: 62%;
+    margin-left: 150px;
+    position:relative;
+}
+.tableA tr,th,td{
+    height: 30px;
+}
+.tableA th{
+    background-color: rgba(167, 165, 165, 0.623);
+}
+.tableA td{
+    text-align: center;
+}
+.table2{
+    margin-top:50px;
+}
+@media print{
+    button{display: none;}
+}
